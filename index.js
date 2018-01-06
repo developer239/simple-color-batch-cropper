@@ -1,4 +1,4 @@
-const cv = require('opencv4nodejs');
+import cv from 'opencv4nodejs';
 
 
 const findNonZeroMatches = (matrix, neighbourSize = 100) => {
