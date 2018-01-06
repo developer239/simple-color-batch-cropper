@@ -4,7 +4,14 @@ import { lineIntersect } from "./math";
 
 
 export const getMask = (matrix, colorLower, colorUpper) => {
-  return matrix.inRange(colorLower, colorUpper);
+  const rangeMask = matrix.inRange(colorLower, colorUpper);
+
+  const blurred = rangeMask.blur(new cv.Size(15, 15));
+  return blurred.threshold(
+    200,
+    255,
+    cv.THRESH_BINARY
+  );
 };
 
 export const getContour = (matrix) => {

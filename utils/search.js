@@ -1,8 +1,9 @@
-export const findNonZeroMatches = (matrix, neighbourSize = 100) => {
+export const findNonZeroMatches = (matrix, neighbourSize = 20) => {
   const matches = [];
   const nonZeroMatches = matrix.findNonZero();
 
   nonZeroMatches.forEach((nonZeroMatch) => {
+    console.log(nonZeroMatch)
     let hasNoNeighbours = true;
 
     matches.forEach((match) => {
@@ -25,7 +26,7 @@ export const findNonZeroMatches = (matrix, neighbourSize = 100) => {
   return matches;
 };
 
-export const findMatches = (matrix, probability = 0.95, neighbourSize = 100) => {
+export const findMatches = (matrix, probability = 0.95, neighbourSize = 50) => {
   const matches = [];
   for (let matX = 0; matX < matrix.cols; matX += 1) {
     for (let matY = 0; matY < matrix.rows; matY += 1) {
