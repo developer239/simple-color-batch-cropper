@@ -4,7 +4,7 @@ import { findNonZeroMatches } from './utils/search';
 import { getMask, getContour, getRegion, getContourCenterPoint } from './utils/image';
 
 
-const findMatch = async () => {
+const findMatches = async () => {
   const originalMat = await cv.imreadAsync('./images/originalSmall.jpg');
   const originalMatMasked = getMask(originalMat);
   const matches = findNonZeroMatches(originalMatMasked);
@@ -32,4 +32,4 @@ const findMatch = async () => {
   cv.imshowWait('Matched!', originalMat);
 };
 
-findMatch();
+findMatches();
