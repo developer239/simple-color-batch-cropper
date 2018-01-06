@@ -136,10 +136,8 @@ const findMatch = async () => {
   const originalMat = await cv.imreadAsync('./templateMatching/originalSmall.jpg');
   const waldoMat = await cv.imreadAsync('./templateMatching/findSmall.jpg');
 
-  console.time('match');
   // Match template (the brightest locations indicate the highest match)
   const matched = originalMat.matchTemplate(waldoMat, 1);
-  console.timeEnd('match');
 
   // Use minMaxLoc to locate the highest value (or lower, depending of the type of matching method)
   const minMax = matched.minMaxLoc();
