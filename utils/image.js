@@ -3,9 +3,7 @@ import { getMaxProperty, getMinProperty } from "./array";
 import { lineIntersect } from "./math";
 
 
-export const getMask = (matrix) => {
-  const colorUpper = cv.Vec(255, 65, 255);
-  const colorLower = cv.Vec(0, 0, 130);
+export const getMask = (matrix, colorLower, colorUpper) => {
   return matrix.inRange(colorLower, colorUpper);
 };
 
