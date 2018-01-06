@@ -15,8 +15,21 @@ const findMatch = async () => {
     const matchContours = getContour(matchRegionMatMasked);
     const contourCenter = getContourCenterPoint(matchContours);
     const matchRegionWithBoundingBox = drawSquareAroundCenter(matchRegionMat, contourCenter);
+
+    // Draw match on original matrix
+    drawSquareAroundCenter(
+      originalMat,
+      {
+        x: contourCenter.x + match.x - 50,
+        y: contourCenter.y + match.y - 50,
+      },
+      18,
+      false
+    );
+
     cv.imshowWait('Matched!', matchRegionWithBoundingBox);
   });
+  cv.imshowWait('Matched!', originalMat);
 };
 
 findMatch();

@@ -1,11 +1,12 @@
 import cv from "opencv4nodejs";
 
 
-export const drawSquareAroundCenter = (region, center, r = 18) => {
+export const drawSquareAroundCenter = (region, center, r = 18, createNew = true) => {
   const x = Math.floor(center.x);
   const y = Math.floor(center.y);
 
-  return region.copy().drawRectangle(
+  const returnedMatrix = createNew ? region.copy() : region;
+  return returnedMatrix.drawRectangle(
     new cv.Point(x - r, y - r),
     new cv.Point(x + r, y + r),
     new cv.Vec(0, 255, 0),
