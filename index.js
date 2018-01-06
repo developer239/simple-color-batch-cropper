@@ -1,6 +1,33 @@
 const cv = require('opencv4nodejs');
 
 
+const findNonZeroMatches = (matrix, neighbourSize = 100) => {
+  const matches = [];
+  const nonZeroMatches = matrix.findNonZero();
+
+  nonZeroMatches.forEach((nonZeroMatch) => {
+    let hasNoNeighbours = true;
+
+    matches.forEach((match) => {
+      if (
+        nonZeroMatch.x - match.x - neighbourSize < 0
+        && nonZeroMatch.y - match.y - neighbourSize < 0
+      ) {
+        hasNoNeighbours = false;
+      }
+    });
+
+    if (hasNoNeighbours) {
+      matches.push({
+        x: nonZeroMatch.x,
+        y: nonZeroMatch.y,
+      });
+    }
+  });
+
+  return matches;
+};
+
 const findMatches = (matrix, probability = 0.95, neighbourSize = 100) => {
   const matches = [];
   for (let matX = 0; matX < matrix.cols; matX += 1) {
@@ -36,6 +63,7 @@ const findMatches = (matrix, probability = 0.95, neighbourSize = 100) => {
   return matches;
 };
 
+// TODO: Make sure that you removed noise
 const makeMask = (matrix) => {
   // Filter by color
   const colorUpper = cv.Vec(255, 65, 255);
@@ -118,12 +146,12 @@ function drawSquareAroundCenter(region, center) {
 
 const findMatch = async () => {
   // Load images
-  const originalMat = await cv.imreadAsync('./templateMatching/original.jpg');
+  const originalMat = await cv.imreadAsync('./templateMatching/originalSmall.jpg');
 
   // Match template (the brightest locations indicate the highest match)
   const matched = makeMask(originalMat);
-  const matches = findMatches(matched);
-  const matchRegion = getMatchRegion(matches[1], originalMat);
+  const matches = findNonZeroMatches(matched);
+  const matchRegion = getMatchRegion(matches[0], originalMat);
   const contourCenter = getContourCenterPoint(matchRegion);
   const matchRegionWithBoundingBox = drawSquareAroundCenter(matchRegion, contourCenter);
   cv.imshowWait('Matched!', matchRegionWithBoundingBox);
