@@ -3,16 +3,12 @@ const cv = require('opencv4nodejs');
 
 const findMatches = (matrix, probability = 0.95, neighbourSize = 100) => {
   const matches = [];
-  console.time('findMatches');
   for (let matX = 0; matX < matrix.cols; matX += 1) {
     for (let matY = 0; matY < matrix.rows; matY += 1) {
       // Get raw value at coordinates
       const rawValue = matrix.atRaw(matY, matX);
 
-      // If probability = 0.95 then we want only those that are <= 0.05
-      if (1 - rawValue <= probability) {
-        matrix.set(matY, matX, 1);
-      } else {
+      if (rawValue >= probability) {
         // By default there are no neighbours
         let hasNoNeighbours = true;
 
@@ -37,7 +33,6 @@ const findMatches = (matrix, probability = 0.95, neighbourSize = 100) => {
       }
     }
   }
-  console.timeEnd('findMatches');
   return matches;
 };
 
@@ -45,17 +40,7 @@ const makeMask = (matrix) => {
   // Filter by color
   const colorUpper = cv.Vec(255, 65, 255);
   const colorLower = cv.Vec(0, 0, 130);
-  const rangeMask = matrix.inRange(colorLower, colorUpper);
-  return rangeMask;
-  // remove noise
-  // const blurred = rangeMask.blur(new cv.Size(3, 3));
-  // const tresholded = blurred.threshold(
-  //   200,
-  //   255,
-  //   cv.THRESH_BINARY
-  // );
-  //
-  // return tresholded;
+  return matrix.inRange(colorLower, colorUpper);
 };
 
 const getContour = (mask) => {
@@ -117,7 +102,7 @@ function getContourCenterPoint(region) {
 }
 
 function drawSquareAroundCenter(region, center) {
-  const r = 18;
+  const r = 33;
   const rectX = Math.floor(center.x);
   const rectY = Math.floor(center.y);
 
@@ -133,22 +118,18 @@ function drawSquareAroundCenter(region, center) {
 
 const findMatch = async () => {
   // Load images
-  const originalMat = await cv.imreadAsync('./templateMatching/originalSmall.jpg');
-  const waldoMat = await cv.imreadAsync('./templateMatching/findSmall.jpg');
+  const originalMat = await cv.imreadAsync('./templateMatching/original.jpg');
 
   // Match template (the brightest locations indicate the highest match)
-  const matched = originalMat.matchTemplate(waldoMat, 1);
-
-  // Use minMaxLoc to locate the highest value (or lower, depending of the type of matching method)
-  const minMax = matched.minMaxLoc();
-  const { minLoc: { x, y } } = minMax;
-
+  const matched = makeMask(originalMat);
   const matches = findMatches(matched);
-  const matchRegion = getMatchRegion(matches[0], originalMat);
+  const matchRegion = getMatchRegion(matches[1], originalMat);
   const contourCenter = getContourCenterPoint(matchRegion);
   const matchRegionWithBoundingBox = drawSquareAroundCenter(matchRegion, contourCenter);
-
   cv.imshowWait('Matched!', matchRegionWithBoundingBox);
 };
 
-findMatch();
+console.time('start');
+findMatch().then(() => {
+  console.timeEnd('start');
+});
