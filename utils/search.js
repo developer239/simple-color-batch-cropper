@@ -3,7 +3,6 @@ export const findNonZeroMatches = (matrix, neighbourSize = 20) => {
   const nonZeroMatches = matrix.findNonZero();
 
   nonZeroMatches.forEach((nonZeroMatch) => {
-    console.log(nonZeroMatch)
     let hasNoNeighbours = true;
 
     matches.forEach((match) => {
