@@ -1,26 +1,25 @@
-import { getMaxProperty, getMinProperty } from "./array";
+import { getMaxProperty, getMinProperty } from './array'
 
 
 export const lineIntersect = (x1, y1, x2, y2, x3, y3, x4, y4) => {
-  let ua, ub, denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+  let ua, ub,
+    denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1)
   if (denom === 0) {
-    return null;
+    return null
   }
-  ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
-  ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
+  ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom
+  ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom
   return {
     x: x1 + ua * (x2 - x1),
     y: y1 + ua * (y2 - y1),
     seg1: ua >= 0 && ua <= 1,
-    seg2: ub >= 0 && ub <= 1
-  };
-};
+    seg2: ub >= 0 && ub <= 1,
+  }
+}
 
-export const positiveNumber = number => Math.max(0, number);
+export const positiveNumber = number => Math.max(0, number)
 
-export const randomNumberBetween = (min, max) => {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-};
+export const randomNumberBetween = (min, max) => Math.floor(min + Math.random() * (max + 1 - min))
 
 /**
  * This thing is little bit too complicated.
@@ -60,78 +59,77 @@ export const randomNumberBetween = (min, max) => {
  * --- we choose the lower value and return it as width and height
  */
 export const calculateTargetWidthHeight = (matrix, matches, opts = {}) => {
-  let shouldGenerateRegion = true;
+  let shouldGenerateRegion = true
 
-  const matrixWidth = matrix.cols;
-  const matrixHeight = matrix.rows;
-  const minSize = opts.minSize ? opts.minSize : 100;
-  const offset = opts.offset ? opts.offset : 25;
+  const matrixWidth = matrix.cols
+  const matrixHeight = matrix.rows
+  const minSize = opts.minSize ? opts.minSize : 100
+  const offset = opts.offset ? opts.offset : 25
 
   // We have to normalize y value because matrix uses rows and cols and this
   // function uses cartesian system
   // x is same
   // y is inverse
-  const normalizedMatches = matches.map((match) => ({
+  const normalizedMatches = matches.map(match => ({
     x: match.x,
     y: matrixHeight - match.y,
-  }));
+  }))
 
-  const randomWidth = randomNumberBetween(minSize, minSize + 200);
-  const randomHeight = randomNumberBetween(minSize, minSize + 200);
+  const randomWidth = randomNumberBetween(minSize, minSize + 200)
+  const randomHeight = randomNumberBetween(minSize, minSize + 200)
 
-  let targetWidth = randomWidth;
-  let targetHeight = randomHeight;
+  let targetWidth = randomWidth
+  let targetHeight = randomHeight
 
-  const randomX = randomNumberBetween(1, matrixWidth);
-  const randomY = randomNumberBetween(1, matrixHeight);
+  const randomX = randomNumberBetween(1, matrixWidth)
+  const randomY = randomNumberBetween(1, matrixHeight)
 
-  const bottomRightMatches = (normalizedMatches)
-    .filter((match) => match.x + offset > randomX && match.y - offset < randomY);
+  const bottomRightMatches = normalizedMatches
+    .filter(match => match.x + offset > randomX && match.y - offset < randomY)
 
   if (bottomRightMatches.length) {
-    const closestX = getMinProperty(bottomRightMatches, 'x');
-    const closestY = getMaxProperty(bottomRightMatches, 'y');
+    const closestX = getMinProperty(bottomRightMatches, 'x')
+    const closestY = getMaxProperty(bottomRightMatches, 'y')
 
-    const differenceClosestX = closestX - offset - randomX;
+    const differenceClosestX = closestX - offset - randomX
     // If x too close
     if (closestX > randomX || differenceClosestX - targetWidth < 0) {
       // If x too close we are able to generate min sized region
       if (differenceClosestX > minSize) {
-        targetWidth = differenceClosestX;
+        targetWidth = differenceClosestX
       } else {
-        targetHeight = 0;
-        targetWidth = 0;
-        shouldGenerateRegion = false;
+        targetHeight = 0
+        targetWidth = 0
+        shouldGenerateRegion = false
       }
     }
 
-    const differenceClosestY = randomY - offset - closestY;
+    const differenceClosestY = randomY - offset - closestY
     // If y too close
     if (closestY < randomY || differenceClosestY - targetHeight < 0) {
       // If x too close we are able to generate min sized region
       if (differenceClosestY > minSize) {
-        targetHeight = differenceClosestY;
+        targetHeight = differenceClosestY
       } else {
-        targetHeight = 0;
-        targetWidth = 0;
-        shouldGenerateRegion = false;
+        targetHeight = 0
+        targetWidth = 0
+        shouldGenerateRegion = false
       }
     }
-
   } else {
-    const differenceFromTop = matrixHeight - randomY;
-    const differenceFromLeft = randomX;
-    const offsetFromBorder = 10;
+    const differenceFromTop = matrixHeight - randomY
+    const differenceFromLeft = randomX
+    const offsetFromBorder = 10
 
     // id too close to right border
     if (matrixWidth - differenceFromLeft - targetWidth < 0) {
       // If too close but we are able to generate min sized region
       if (matrixWidth - differenceFromLeft - offsetFromBorder > minSize) {
-        targetWidth = matrixWidth - differenceFromLeft - offsetFromBorder;
+        targetWidth = matrixWidth - differenceFromLeft - offsetFromBorder
       } else {
-        targetHeight = 0;
-        targetWidth = 0;
-        shouldGenerateRegion = false;
+        targetHeight = 0
+        targetWidth = 0
+        shouldGenerateRegion = false
       }
     }
 
@@ -139,24 +137,24 @@ export const calculateTargetWidthHeight = (matrix, matches, opts = {}) => {
     if (matrixHeight - differenceFromTop - targetHeight < 0) {
       // If too close but we are able to generate min sized region
       if (matrixHeight - differenceFromTop - offsetFromBorder > minSize) {
-        targetHeight = matrixHeight - differenceFromTop - offsetFromBorder;
+        targetHeight = matrixHeight - differenceFromTop - offsetFromBorder
       } else {
-        targetHeight = 0;
-        targetWidth = 0;
-        shouldGenerateRegion = false;
+        targetHeight = 0
+        targetWidth = 0
+        shouldGenerateRegion = false
       }
     }
   }
 
 
   // Make it square
-  const finalSize = targetWidth < targetHeight ? targetWidth : targetHeight;
+  const finalSize = targetWidth < targetHeight ? targetWidth : targetHeight
 
   return {
     shouldGenerateRegion,
     x: randomX,
     y: matrixHeight - randomY, // !! De-normalize y value !!
     targetHeight: finalSize,
-    targetWidth: finalSize
-  };
-};
+    targetWidth: finalSize,
+  }
+}
