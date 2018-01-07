@@ -1,6 +1,6 @@
 import cv from "opencv4nodejs";
 import { getMaxProperty, getMinProperty } from "./array";
-import { lineIntersect, positiveNumber } from "./math";
+import { lineIntersect, positiveNumber, calculateTargetWidthHeight } from "./math";
 
 
 export const getMask = (matrix, colorLower, colorUpper, blur) => {
@@ -27,8 +27,8 @@ export const getRegion = (matrix,
                           coordinates,
                           width = 100,
                           height = 100,
-                          offsetX,
-                          offsetY) => {
+                          offsetX = 0,
+                          offsetY = 0) => {
   const matchRect = new cv.Rect(
     positiveNumber(coordinates.x + offsetX),
     positiveNumber(coordinates.y + offsetY),
@@ -47,4 +47,33 @@ export const getContourCenterPoint = (contours) => {
   const maxY = getMaxProperty(contourPoints, 'y');
 
   return lineIntersect(minX, minY, maxX, maxY, minX, maxY, maxX, minY);
+};
+
+export const getRegionsWithoutMatch = (matrix, matches, limit = 10) => {
+  const regions = [];
+  let iteration = 1;
+  while (iteration <= limit) {
+    const {
+      shouldGenerateRegion,
+      targetHeight,
+      targetWidth,
+      x,
+      y,
+    } = calculateTargetWidthHeight(matrix, matches);
+
+    if (shouldGenerateRegion) {
+      const generatedRegion = getRegion(
+        matrix,
+        {
+          x,
+          y,
+        },
+        targetWidth,
+        targetHeight
+      );
+      regions.push(generatedRegion);
+      iteration += 1;
+    }
+  }
+  return regions;
 };
