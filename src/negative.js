@@ -5,8 +5,6 @@ import {
   UPPER_COLOR,
   LOWER_COLOR,
   BLUR,
-  OFFSET,
-  REGION_SIZE,
   PATH,
 } from './config/range';
 
