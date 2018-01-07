@@ -12,3 +12,5 @@ export const lineIntersect = (x1, y1, x2, y2, x3, y3, x4, y4) => {
     seg2: ub >= 0 && ub <= 1
   };
 };
+
+export const positiveNumber = number => Math.max(0, number);

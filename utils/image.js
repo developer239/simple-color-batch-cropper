@@ -1,12 +1,12 @@
 import cv from "opencv4nodejs";
 import { getMaxProperty, getMinProperty } from "./array";
-import { lineIntersect } from "./math";
+import { lineIntersect, positiveNumber } from "./math";
 
 
-export const getMask = (matrix, colorLower, colorUpper) => {
+export const getMask = (matrix, colorLower, colorUpper, blur) => {
   const rangeMask = matrix.inRange(colorLower, colorUpper);
 
-  const blurred = rangeMask.blur(new cv.Size(15, 15));
+  const blurred = rangeMask.blur(new cv.Size(blur, blur));
   return blurred.threshold(
     200,
     255,
@@ -27,11 +27,11 @@ export const getRegion = (matrix,
                           coordinates,
                           width = 100,
                           height = 100,
-                          offsetX = -50,
-                          offsetY = -50) => {
+                          offsetX,
+                          offsetY) => {
   const matchRect = new cv.Rect(
-    coordinates.x + offsetX,
-    coordinates.y + offsetY,
+    positiveNumber(coordinates.x + offsetX),
+    positiveNumber(coordinates.y + offsetY),
     width,
     height
   );
