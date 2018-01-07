@@ -1,5 +1,5 @@
 import cv from 'opencv4nodejs'
-import { findMatches as findMatchesInMatrix } from './utils/search'
+import { findMatches } from './utils/search'
 import { getMask, getRegionsWithoutMatch } from './utils/image'
 import {
   UPPER_COLOR,
@@ -16,7 +16,7 @@ const findNegative = async () => {
   // cv.imshowWait('Original matrix', originalMat)
   // cv.imshowWait('Masked original matrix', originalMatMasked)
 
-  const matches = findMatchesInMatrix(originalMatMasked)
+  const matches = findMatches(originalMatMasked)
   const generatedRegions = getRegionsWithoutMatch(originalMat, matches)
 
   generatedRegions.forEach((region, index) => {
