@@ -2,19 +2,29 @@
 
 ### Installation
 ```
-$ npm yarn install
+$ yarn install
 ```
 
 Make sure to have OpenCV 3+ (extra modules are optional) installed on your System https://github.com/opencv/opencv/releases/.
 
-More info can be found here: [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
+More information can be found here: [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
 
 ### What does it do
 
-1) Imagine that you have this image and you want to find all shooting targets
+#### Positive images
+
+1) When you need to generate large amount of positive samples of all _shooting targets_ automatically
+![1](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/1.png?raw=true)
 2) This script will generate binary image
+![2](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/2.png?raw=true)
 3) Then it will find shooting target for you
+![3](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/3.png?raw=true)
 4) Then it will draw bounding box around the target
+![4](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/4.png?raw=true)
+
+#### Negative images
+
+`src/negative.js` will crop random locations from the original image so that none of the locations contain matches that you found using the `src/positive.js` file. This is useful when you want to generate large number of negative samples.
 
 ### How to use
 
