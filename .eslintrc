@@ -8,6 +8,11 @@
     "sourceType": "module"
   },
   "rules": {
-    "consistent-return": 0
+    "consistent-return": 0,
+    "id-length": 0,
+    "no-mixed-operators": 0,
+    "max-params": 0,
+    "valid-jsdoc": 0,
+    "no-inline-comments": 0
   }
 }
