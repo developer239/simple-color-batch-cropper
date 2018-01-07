@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js"
+    "positive": "babel-node positive.js",
+    "negative": "babel-node negative.js"
   },
   "author": "",
   "license": "ISC",
