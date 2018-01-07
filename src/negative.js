@@ -13,8 +13,8 @@ const findNegative = async () => {
   const originalMat = await cv.imreadAsync(PATH)
   const originalMatMasked = getMask(originalMat, LOWER_COLOR, UPPER_COLOR, BLUR)
 
-  cv.imshowWait('Original matrix', originalMat)
-  cv.imshowWait('Masked original matrix', originalMatMasked)
+  // cv.imshowWait('Original matrix', originalMat)
+  // cv.imshowWait('Masked original matrix', originalMatMasked)
 
   const matches = findMatchesInMatrix(originalMatMasked)
   const generatedRegions = getRegionsWithoutMatch(originalMat, matches)
