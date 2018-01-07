@@ -20,7 +20,6 @@ const findPositive = async () => {
   cv.imshowWait('Masked original matrix', originalMatMasked)
 
   const matches = findMatches(originalMatMasked)
-  console.log('Matches: ', matches)
 
   matches.forEach(match => {
     const matchRegionMat = getRegion(originalMat, match, REGION_SIZE, REGION_SIZE, OFFSET, OFFSET)
