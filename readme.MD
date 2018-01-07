@@ -9,6 +9,13 @@ Make sure to have OpenCV 3+ (extra modules are optional) installed on your Syste
 
 More info can be found here: [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
 
+### What does it do
+
+1) Imagine that you have this image and you want to find all shooting targets
+2) This script will generate binary image
+3) Then it will find shooting target for you
+4) Then it will draw bounding box around the target
+
 ### How to use
 
 * Put images that you want to use in `src/images` folder
