@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "@strv/javascript/environments/nodejs/v8-3",
+    "@strv/javascript/environments/nodejs/optional",
+    "@strv/javascript/coding-styles/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "consistent-return": 0
+  }
+}

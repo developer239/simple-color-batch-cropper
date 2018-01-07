@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "positive": "babel-node src/positive.js",
-    "negative": "babel-node src/negative.js"
+    "negative": "babel-node src/negative.js",
+    "lint": "eslint ./src --fix"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +14,9 @@
     "opencv4nodejs": "^2.31.1"
   },
   "devDependencies": {
+    "@strv/eslint-config-javascript": "^7.9.0",
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.13.1"
   }
 }
