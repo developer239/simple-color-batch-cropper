@@ -26,7 +26,7 @@ export const randomNumberBetween = (min, max) => Math.floor(min + Math.random() 
 /**
  * This thing is little bit too complicated.
  *
- * THIS IS CARTESIAN SYSTEM. WE HAVE TO DE/NORMALIZE VALUES.
+ * IT IS CARTESIAN SYSTEM. WE HAVE TO DE/NORMALIZE VALUES.
  *
  * Matrix uses rows and cols.
  * This function uses x/y. (y is inverse)
