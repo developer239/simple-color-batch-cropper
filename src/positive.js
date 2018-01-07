@@ -10,7 +10,7 @@ import { getMask, getContour, getRegion, getContourCenterPoint } from './utils/i
 // const BLUR = 5;
 // const OFFSET = -50;
 // const REGION_SIZE = 100;
-// const PATH = './images/withAppleSmall.jpg';
+// const PATH = './src/images/withAppleSmall.jpg';
 
 // -- STAR --
 // const UPPER_COLOR = cv.Vec(130, 255, 255);
@@ -18,7 +18,7 @@ import { getMask, getContour, getRegion, getContourCenterPoint } from './utils/i
 // const BLUR = 5;
 // const OFFSET = -20;
 // const REGION_SIZE = 100;
-// const PATH = './images/withStarSmall.jpg';
+// const PATH = './src/images/withStarSmall.jpg';
 
 // -- Range --
 const UPPER_COLOR = cv.Vec(255, 255, 255);
@@ -26,7 +26,7 @@ const LOWER_COLOR = cv.Vec(230, 230, 230);
 const BLUR = 8;
 const OFFSET = -20;
 const REGION_SIZE = 100;
-const PATH = './images/withRangeSmall.jpg';
+const PATH = './src/images/withRangeSmall.jpg';
 
 const findMatches = async () => {
   const originalMat = await cv.imreadAsync(PATH);
