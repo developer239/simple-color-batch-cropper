@@ -5,7 +5,7 @@
 $ npm yarn install
 ```
 
-Make sure to have OpenCV 3+ ( extra modules are optional ) installed on your System https://github.com/opencv/opencv/releases/. In case you are running on Windows or have OpenCV set up in a custom directory make sure to set the following environment variables:
+Make sure to have OpenCV 3+ (extra modules are optional) installed on your System https://github.com/opencv/opencv/releases/.
 
 More info can be found here: [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
 
