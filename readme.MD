@@ -5,7 +5,7 @@
 $ yarn install
 ```
 
-Make sure to have OpenCV 3+ (extra modules are optional) installed on your System https://github.com/opencv/opencv/releases/.
+Make sure to have OpenCV 3+ (extra modules are optional) installed on your system https://github.com/opencv/opencv/releases/.
 
 More information can be found here: [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
 
@@ -17,9 +17,9 @@ More information can be found here: [opencv4nodejs](https://github.com/justadude
 ![1](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/1.png?raw=true)
 2) This script will generate binary image
 ![2](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/2.png?raw=true)
-3) Then it will find shooting target for you
+3) Then it will find all shooting targets for you
 ![3](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/3.png?raw=true)
-4) Then it will draw bounding box around the target
+4) Then it will draw bounding box around all targets
 ![4](https://github.com/developer239/simple-color-batch-cropper/blob/master/documentation/images/4.png?raw=true)
 
 #### Negative images
@@ -28,7 +28,7 @@ More information can be found here: [opencv4nodejs](https://github.com/justadude
 
 ### How to use
 
-* Put images that you want to use in `src/images` folder
+* Put image that you want to process in `src/images` folder
 * Create config variables in `src/config` folder. Every obect that you want to crop has its own config file. For example config for cropping apples: 
 ```
 export const UPPER_COLOR = new Vec(200, 65, 255) // Upper color range !! IMPORTANT
@@ -40,8 +40,8 @@ export const PATH = './src/images/withAppleSmall.jpg' // Path to image that will
 ```
 
 * Import correct config in `src/positive.js` and `src/negative.js` files
-* Run either `yarn positive` or `yarn negative` in order to see result image
+* Run either `yarn positive` or `yarn negative` in order to see the result
 
 ### Todo
 
-- [ ] Read multiple images from folder and save generate results into output folder
+- [ ] Read multiple images from a folder and save results into output folder
