@@ -41,7 +41,3 @@ export const PATH = './src/images/withAppleSmall.jpg' // Path to image that will
 
 * Import correct config in `src/positive.js` and `src/negative.js` files
 * Run either `yarn positive` or `yarn negative` in order to see the result
-
-### Todo
-
-- [ ] Read multiple images from a folder and save results into output folder
